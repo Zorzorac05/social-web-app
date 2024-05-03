@@ -11,13 +11,17 @@ const reactionSchema = new Schema(
             required: true,
             max_length: 280,
         },
-        userName: [
-            {
-                type: Schema.Types.userName,
-                ref: 'user',
-                required: true,
-            },
-        ],
+        // userName: [
+        //     {
+        //         type: Schema.Types.userName,
+        //         ref: 'user',
+        //         required: true,
+        //     },
+        // ],
+        userName: {
+            type: String,
+            required: true,
+        },
         createdAt: {
             type: Date,
             default: Date.now,
@@ -32,4 +36,4 @@ const reactionSchema = new Schema(
     }
 );
 
-module.exports = Reaction;
+module.exports = reactionSchema;

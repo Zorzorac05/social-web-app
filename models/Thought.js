@@ -6,20 +6,17 @@ const thoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: true,
-            min_length: 1,
-            max_length: 280,
+            minLength: 1,
+            maxLength: 280,
         },
         createdAt: {
             type: Date,
             default: Date.now,
         },
-        userName: [
-            {
-                type: Schema.Types.userName,
-                ref: 'user',
-                required: true,
-            },
-        ],
+        userName: {
+            type: String,
+            required: true,
+        },
         reactions: [reactionSchema],
     },
     {
@@ -29,6 +26,8 @@ const thoughtSchema = new Schema(
         id: false,
     }
 );
+
+thoughtSchema.virtual('reactionCount').get(function() {return this.reactions.length});
 
 const Thought = model('thought', thoughtSchema);
 
