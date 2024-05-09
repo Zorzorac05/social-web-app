@@ -15,28 +15,7 @@ connection.once('open', async () => {
       await connection.dropCollection('thoughts');
     }
 
-    await User.insertMany([
-        {
-            username: 'Alex', 
-            email: 'alex@email.com', 
-            thoughts: [], 
-            friends: []
-        },
-        {
-            username: 'Zeno', 
-            email: 'zeno@email.com', 
-            thoughts: [], 
-            friends: []
-        },
-        {
-            username: 'Rylee', 
-            email: 'rylee@email.com', 
-            thoughts: [], 
-            friends: []
-        },
-    ]);
-
-    await Thought.insertMany([
+    const thoughts = await Thought.insertMany([
         {
             thoughtText: 'head empty',
             userName: 'Alex',
@@ -69,4 +48,29 @@ connection.once('open', async () => {
         },
 
     ]);
+
+    //console.log(thoughts[0]._id);
+
+    const users = await User.insertMany([
+        {
+            username: 'Alex', 
+            email: 'alex@email.com', 
+            thoughts: [thoughts[0]._id, thoughts[1]._id], 
+            friends: [ "66345f8e15a87d32ee632e49" ]
+        },
+        {
+            username: 'Zeno', 
+            email: 'zeno@email.com', 
+            thoughts: [thoughts[2]._id], 
+            friends: []
+        },
+        {
+            username: 'Rylee', 
+            email: 'rylee@email.com', 
+            thoughts: [], 
+            friends: ["66345f8e15a87d32ee632e49"]
+        },
+    ]);
+
+
 });
